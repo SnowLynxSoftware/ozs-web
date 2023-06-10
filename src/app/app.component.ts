@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { AppClientConfigService } from "./shared/client-config/client-config.service";
 
 @Component({
   selector: "app-root",
@@ -6,5 +7,5 @@ import { Component } from "@angular/core";
   styleUrls: ["./app.scss"],
 })
 export class AppComponent {
-  title = "ozs-web";
+  constructor(private readonly configService: AppClientConfigService) {}
 }
