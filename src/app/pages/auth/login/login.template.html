@@ -14,6 +14,7 @@
             class="form-control"
             id="txtEmail"
             placeholder="name@example.com"
+            [(ngModel)]="email"
           />
         </div>
       </div>
@@ -22,12 +23,19 @@
       <div class="col">
         <div class="mb-3">
           <label for="txtPassword" class="form-label">Password</label>
-          <input type="password" class="form-control" id="txtPassword" />
+          <input
+            type="password"
+            class="form-control"
+            id="txtPassword"
+            [(ngModel)]="password"
+          />
         </div>
       </div>
     </div>
     <div class="d-grid gap-2">
-      <button type="button" class="btn btn-outline-primary">Log In</button>
+      <button type="button" class="btn btn-outline-primary" (click)="login()">
+        Log In
+      </button>
       <button type="button" class="btn btn-link">
         Register A New Account! It's FREE!
       </button>

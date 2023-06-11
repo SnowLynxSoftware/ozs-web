@@ -6,7 +6,10 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "setup-token": "if [ -z $GITHUB_TOKEN ]; then echo \"The [GITHUB_TOKEN] environment variable has not been set in your ecosystem.\" && exit 1; else npm run token-setup-line1 && npm run token-setup-line2; fi",
+    "token-setup-line1": "echo '@snowlynxsoftware:registry=https://npm.pkg.github.com' > .npmrc",
+    "token-setup-line2": "echo '//npm.pkg.github.com/:_authToken='$GITHUB_TOKEN >> .npmrc"
   },
   "private": true,
   "dependencies": {
@@ -18,6 +21,7 @@
     "@angular/platform-browser": "^16.0.0",
     "@angular/platform-browser-dynamic": "^16.0.0",
     "@angular/router": "^16.0.0",
+    "@snowlynxsoftware/ozs-common": "1.0.6",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"

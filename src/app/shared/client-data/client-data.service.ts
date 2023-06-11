@@ -4,6 +4,7 @@ import { APIRoutes } from "./api-routes";
 import { IClientDataOptions } from "./client-data-options.interface";
 import { AppClientConfigService } from "../client-config/client-config.service";
 import { lastValueFrom } from "rxjs";
+import { AppStorageService } from "../storage/storage.service";
 
 @Injectable({
   providedIn: "root",
@@ -11,7 +12,8 @@ import { lastValueFrom } from "rxjs";
 export class AppClientDataService {
   constructor(
     private readonly httpClient: HttpClient,
-    private readonly clientConfigService: AppClientConfigService
+    private readonly clientConfigService: AppClientConfigService,
+    private readonly storageService: AppStorageService
   ) {}
 
   /**
@@ -81,11 +83,22 @@ export class AppClientDataService {
     additionalHeaders: any,
     excludeAuthHeaders: boolean
   ): any {
+    let sessionToken: string = "";
+    if (!excludeAuthHeaders) {
+      // If we're not excluding the auth headers, we need to check that we have a session token.
+      sessionToken = this.storageService.getSessionToken();
+      if (!sessionToken) {
+        throw new Error(
+          "You must have a session token to make this request. Please log in and try again."
+        );
+      }
+    }
+
     // Set up the default headers.
     const defaultHeaders = {
       "Content-Type": "application/json",
       ...(!excludeAuthHeaders && {
-        Authorization: `Bearer 1234`,
+        Authorization: `Bearer ${sessionToken}`,
       }),
     };
 
