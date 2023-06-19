@@ -36,9 +36,12 @@
       <button type="button" class="btn btn-outline-primary" (click)="login()">
         Log In
       </button>
-      <button type="button" class="btn btn-link">
+      <button *ngIf="showRegisterButton" type="button" class="btn btn-link">
         Register A New Account! It's FREE!
       </button>
+      <p *ngIf="!showRegisterButton" class="text-center mt-3">
+        New User Registration Temporarily Disabled. Please try again later.
+      </p>
       <button type="button" class="btn btn-link">Forgot Your Password?</button>
     </div>
   </div>

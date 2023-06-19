@@ -1,24 +1,35 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { AppAuthService } from "../auth.service";
 import { AppStorageService } from "../../../shared/storage/storage.service";
 import { Router } from "@angular/router";
+import { AppSettingsService } from "../../settings/settings.service";
 
 @Component({
   selector: "app-login",
   templateUrl: "./login.template.html",
   styleUrls: ["./login.scss"],
 })
-export class AppLoginComponent {
+export class AppLoginComponent implements OnInit {
+  public showRegisterButton: boolean = true;
+
   public email: string;
   public password: string;
 
   constructor(
     private readonly authService: AppAuthService,
     private readonly storageService: AppStorageService,
+    private readonly settingsService: AppSettingsService,
     private readonly router: Router
   ) {
     this.email = "";
     this.password = "";
+  }
+
+  public ngOnInit() {
+    const settings = this.settingsService.tryGetCachedSettings();
+    if (settings) {
+      this.showRegisterButton = settings.allowUserRegistration;
+    }
   }
 
   public async login(): Promise<void> {

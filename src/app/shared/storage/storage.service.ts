@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { StorageHelper } from "./storage.helper";
 import { StorageKeys } from "./storage-keys.enum";
+import { SettingsDTO } from "@snowlynxsoftware/ozs-common";
 
 @Injectable({
   providedIn: "root",
@@ -18,6 +19,14 @@ export class AppStorageService {
 
   public saveUserData(userData: { id: number; email: string }): void {
     StorageHelper.set(StorageKeys.USER_DATA, userData);
+  }
+
+  public saveSettings(settings: SettingsDTO): void {
+    StorageHelper.set(StorageKeys.SETTINGS, settings);
+  }
+
+  public getSettings(): SettingsDTO {
+    return StorageHelper.get(StorageKeys.SETTINGS);
   }
 
   public getUserData(): string {
