@@ -1,0 +1,11 @@
+// Tie everything together here and import this into the main styles file.
+@import "./variables";
+
+// Vendor
+@import "./vendors/bootstrap";
+
+// Global
+html,
+body {
+    background-color: $bg-color;
+}
